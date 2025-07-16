@@ -1,0 +1,11 @@
+{
+"type": "FeatureCollection",
+"name": "TES2",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Name": "Kantor Kecamatan Sukolilo", "description": null, "timestamp": null, "begin": null, "end": null, "altitudeMode": null, "tessellate": -1, "extrude": 0, "visibility": -1, "drawOrder": null, "icon": null }, "geometry": { "type": "Point", "coordinates": [ 112.7703488, -7.2996306, 0.0 ] } },
+{ "type": "Feature", "properties": { "Name": "Balai Desa Sukolilo", "description": null, "timestamp": null, "begin": null, "end": null, "altitudeMode": null, "tessellate": -1, "extrude": 0, "visibility": -1, "drawOrder": null, "icon": null }, "geometry": { "type": "Point", "coordinates": [ 110.9203563, -6.9292724, 0.0 ] } },
+{ "type": "Feature", "properties": { "Name": "Kantor Kepala Desa Kasiyan", "description": null, "timestamp": null, "begin": null, "end": null, "altitudeMode": null, "tessellate": -1, "extrude": 0, "visibility": -1, "drawOrder": null, "icon": null }, "geometry": { "type": "Point", "coordinates": [ 110.9489181, -6.9080137, 0.0 ] } },
+{ "type": "Feature", "properties": { "Name": "Balai Desa Baturejo", "description": null, "timestamp": null, "begin": null, "end": null, "altitudeMode": null, "tessellate": -1, "extrude": 0, "visibility": -1, "drawOrder": null, "icon": null }, "geometry": { "type": "Point", "coordinates": [ 110.9105464, -6.9172583, 0.0 ] } }
+]
+}

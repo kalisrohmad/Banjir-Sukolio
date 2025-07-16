@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WEBGIS</title>
+    <meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+	<meta name="mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+	<!-- Marker Cluster CSS Library -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
+    
+    <style>
+        html, body, #map{
+            height: 100%;
+            width: 100%;
+            margin: 0px;
+        }
+		.info {
+		   padding: 6px 8px;
+		   font: 14px/16px Arial, Helvetica, sans-serif;
+		   background: white;
+		   background: rgba(255,255,255,0.8);
+		   box-shadow: 0 0 15px rgba(0,0,0,0.2);
+		   border-radius: 5px;
+		}
+		.info h2 {
+		   margin: 0 0 5px;
+		   color: #777;
+		}
+
+    .label-desa {
+      font-weight: bold;
+      color: black;
+      font-size: 12px;
+      background: transparent !important;
+      border: none !important;
+      padding: 0 !important;
+      box-shadow: none !important;
+      text-shadow: 1px 1px 2px white;
+    }
+    </style>
+</head>
+<body>
+    <body style="background-color:mintcream;">
+        <b> Peta Rencana Titik Evakuasi Banjir Kecamatan Sukolilo </b>
+       
+          <!-- Library Leaflet Javascript -->
+       <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+               
+       <!-- Library jquery -->
+       <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script> 
+   
+       <!-- Library Bootstrap -->
+       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+   
+       <!-- Marker Cluster JS Library -->
+       <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+   
+       <!-- Bootstrap Modal Popup -->
+       <div class="modal fade" id="featureModal" tabindex="-1" role="dialog">
+           <div class="modal-dialog">
+           <div class="modal-content">
+               <div class="modal-header">
+                   <button class="close" type="button" data-dismiss="modal" aria-hidden="true">×</button>
+                   <h4 class="modal-title text-primary" id="feature-title"></h4>
+               </div>
+               <div class="modal-body" id="feature-info"></div>
+               <div class="modal-footer">
+                   <button type="button" class="btn btn-primary" data-dismiss="modal">Tutup</button>
+               </div>
+           </div>
+           </div>
+       </div>
+      <div id="sidebar" style="
+  position: absolute;
+  top: 250px;
+  left: 10px;
+  width: 260px;
+  max-height: 90%;
+  background-color: white;
+  border: 1px solid #ccc;
+  padding: 10px;
+  overflow-y: auto;
+  z-index: 1000;
+  box-shadow: 0 0 8px rgba(0,0,0,0.2);
+  border-radius: 6px;
+  display: none;
+">
+  <button onclick="document.getElementById('sidebar').style.display='none'" style="
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    border: none;
+    background: none;
+    font-size: 16px;
+    cursor: pointer;
+  ">&times;</button>
+
+  <h4 id="sidebar-title" style="text-align:center">Informasi Evakuasi</h4>
+  <img id="sidebar-image" src="" alt="Foto Evakuasi" style="width: 100%; height: auto; margin: 10px 0;">
+  <p id="sidebar-info" style="font-size: 14px;"></p>
+</div>
+
+       <div id="map"></div>
+      <!-- Logo Tetap SIBIKO3 -->
+<div id="logo-sibiko" style="
+  position: absolute;
+  top: 100px;
+  left: 10px;
+  z-index: 1100;
+  background: rgba(255, 255, 255, 0.85);
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  text-align: center;
+  width: 160px;
+">
+  <img src="images/SIBIKO3.png" style="width: 60px; margin-bottom: 8px;" alt="Logo SIBIKO">
+  <h5 style="margin: 0; font-size: 14px; font-weight: bold; color: #0055aa;">PETA RENCANA TITIK EVAKUASI BANJIR</h5>
+  <span style="font-size: 12px; color: #333;">Kecamatan Sukolilo</span>
+</div>
+
+</div>
+
+       <script>
+        //Center map
+    var map = L.map('map').setView([-6.929955555712368, 110.91752886723405],20);
+
+//Basemap
+           var basemap1 = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        });
+        
+        var basemap2 = L.tileLayer('http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
+        maxZoom: 20,
+        subdomains:['mt0','mt1','mt2','mt3'],
+        attribution: 'Google Streets'
+        }); 
+        
+        var basemap3 = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+        maxZoom: 20,
+        subdomains:['mt0','mt1','mt2','mt3'],
+        attribution: 'Google Satellite',
+        }); 
+        basemap3.addTo(map);
+
+			//Layer Point
+		  var markerClusters = new L.MarkerClusterGroup({
+			spiderfyOnMaxZoom: true,
+			showCoverageOnHover: true,
+			zoomToBoundsOnClick: true,
+			disableClusteringAtZoom: 15 //Disable cluster pada zoom 20
+			});
+
+        var fotoEvakuasi = {
+  "Kantor Camat Sukolilo": "Kantor Camat Sukolilo.jpg",
+  "Kantor Desa Baturejo": "Kantor Desa Baturejo.jpg",
+  "Kantor Desa Kasiyan": "Kantor Desa Kasiyan.jpg",
+  "Kantor Desa Sukolilo": "Kantor Desa Sukolilo.jpg",
+  "Alun Alun Prawoto": "Alun-Alun Prawoto.png",
+  "Kantor Desa Cekalsewu": "Kantor Desa Cekalsewu.jpg",
+  "Kantor Desa Gadudero": "Kantor Desa Gadudero.jpg",
+  "Kantor Desa Kedungmulyo": "Kantor Desa Kedungmulyo.jpg",
+  "Kantor Desa Prawoto": "Kantor Desa Prawoto.png",
+  "Kantor Desa Wotan": "Kantor Desa Wotan.jpg",
+  "Kantor Desa Baleadi": "Kantor Desa Baleadi.jpg",
+  "Kantor Desa Kedungwinong": "Kantor Desa Kedungwinong.jpg",
+  "Puskesmas Sukolilo": "Puskesmas Sukolilo.jpg"
+};
+    	var TES = L.geoJson(null, {
+			   pointToLayer: function (feature, latlng) {
+				  return L.marker(latlng, {
+					 icon: L.icon({
+						iconUrl: "datakebencanaan/TESICON_resized_32x40.png",
+						iconSize: [20, 30],
+						iconAnchor: [11, 22],
+						popupAnchor: [0, -25]
+					 })
+				  });
+			   },
+
+			   onEachFeature: function (feature, layer) {
+  if (feature.properties) {
+    var namaObjek = feature.properties.NAMOBJ;
+    var gambar = fotoEvakuasi[namaObjek] || "default.jpg"; // default jika tidak ditemukan
+
+   var content = `
+  <div class="row">
+    <div class="col-sm-5">
+      <img src="images/TES/${gambar}" alt="Foto ${namaObjek}" class="img-responsive img-thumbnail">
+    </div>
+    <div class="col-sm-7">
+      <h4><b>${namaObjek}</b></h4>
+    </div>
+  </div>
+`;
+
+    layer.on({
+  click: function () {
+    document.getElementById("sidebar-title").innerText = namaObjek;
+    document.getElementById("sidebar-image").src = "images/TES/" + gambar;
+    document.getElementById("sidebar").style.display = "block";
+  }
+});
+  }
+}
+    })
+
+			$.getJSON("geojson/TES banjir.geojson", function (data) {
+       		TES.addData(data);
+			markerClusters.addLayer(TES).addTo(map); //Menambahkan markerClusters ke dalam layertitik
+			});
+
+
+			 // LAYER POLYLINE
+var JalurEvakuasi = L.geoJson(null, {
+  style: function (feature) {
+    var fungsi = feature.properties.FUNGSI;
+    var style = {
+      color: "black",
+      weight: 1,
+      opacity: 1
+    };
+
+    // Ganti warna dan ketebalan sesuai fungsi
+    if (fungsi === "KOLEKTOR PRIMER") {
+      style.color = "#e74c3c";
+      style.weight = 3;
+    } else if (fungsi === "LOKAL SEKUNDER") {
+      style.color = " #e74c3c";
+      style.weight = 2;
+    } else if (fungsi === "LINGKUNGAN PRIMER") {
+      style.color = " #e74c3c";
+      style.weight = 1;
+    }
+
+    return style;
+  },
+
+  onEachFeature: function (feature, layer) {
+    // Mouseover & mouseout event
+    layer.on({
+      mouseover: function (e) {
+        var layer = e.target;
+        layer.setStyle({
+          weight: 3,
+          color: "yellow",
+          opacity: 1
+        });
+        if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+          layer.bringToFront();
+        }
+      },
+      mouseout: function (e) {
+        JalurEvakuasi.resetStyle(e.target);
+      }
+    });
+
+    // Pop-up/modal info
+    if (feature.properties) {
+      var content = "<table class='table table-bordered table-striped table-condensed'>" +
+        "<tr><th>Fungsi</th><td>" + feature.properties.FUNGSI + "</td></tr>" +
+        "<tr><th>Status</th><td>" + feature.properties.STATUS + "</td></tr>" +
+        "<tr><th>Panjang</th><td>" + (feature.properties.Length || '-') + " meter</td></tr>" +
+        "</table>";
+
+      layer.on({
+        click: function () {
+          $("#feature-title").html("Jalur Evakuasi");
+          $("#feature-info").html(content);
+          $("#featureModal").modal("show");
+        }
+      });
+    }
+  }
+});
+
+// Tambahkan layer ke peta
+$.getJSON("geojson/Jalur evakuasi1.geojson", function (data) {
+  JalurEvakuasi.addData(data);
+  map.addLayer(JalurEvakuasi);
+  map.fitBounds(JalurEvakuasi.getBounds());
+});
+
+
+      // LAYER ADMINISTRASI
+    var adminColors = {"PATI":"#EEECF4"};
+    var admin = L.geoJson(null, {
+      style: function (feature) {
+        return {
+          fillColor: adminColors[feature.properties.KABUPATEN],
+          fillOpacity: 0.5,
+          color: "black",
+          weight: 0.5,
+          opacity: 1
+        };
+      },
+      onEachFeature: function (feature, layer) {
+        var desa = feature.properties.DESA.toUpperCase();
+        layer.bindTooltip(desa, {permanent: true, direction: "center", className: "label-desa"});
+
+        layer.off({
+          click: function () {
+          },
+          mouseover: function (e) {
+            e.target.setStyle({
+              weight: 2,
+              color: "#00FFFF",
+              opacity: 1,
+              fillColor: "yellow",
+              fillOpacity: 1
+            });
+          },
+          mouseout: function (e) {
+            admin.resetStyle(e.target);
+          }
+        });
+      }
+    });
+    $.getJSON("datakebencanaan/Batas Administrasi_ar.geojson", function (data) {
+      admin.addData(data);
+      map.addLayer(admin);
+      map.fitBounds(admin.getBounds());
+    });
+      
+
+//MASUKKAN JUDUL PETA--
+var title = new L.Control({position:'topright'});
+    title.onAdd = function (map) {
+      this._div = L.DomUtil.create('div', 'info');
+         this.update();
+         return this._div;
+        };
+        
+    title.addTo(map);
+
+          //Control Layer
+        var baseMaps = {
+                    'Open Street Map' : basemap1,
+                    'Google Streets' : basemap2,
+					'Google Satellite' : basemap3,
+                }
+                var layerControl = L.control.layers(baseMaps,layers);
+                layerControl.addTo(map);
+                L.Control.Watermark = L.Control.extend({
+			   onAdd: function(map) {
+				  var img = L.DomUtil.create('img');
+				  img.style.width = '100px';
+				  return img;
+			   },
+			   onRemove: function(map) {
+				  // Nothing to do here
+			   }
+			});
+			L.control.watermark = function(opts) {
+			   return new L.Control.Watermark(opts);
+			}
+			L.control.watermark({ position: 'bottomleft' }).addTo(map);
+
+       </script>
+</body>
+</html>

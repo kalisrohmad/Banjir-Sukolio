@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sistem Informasi Bencana Banjir Sukolilo</title>
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+<!-- 
+
+Sonic Template 
+
+http://www.templatemo.com/tm-394-sonic 
+
+-->
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1">
+    
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/font-awesome.min.css">
+	<link rel="stylesheet" href="css/templatemo_misc.css">
+	<link rel="stylesheet" href="css/templatemo_style.css">
+
+    <style>
+.button-disaster {
+    background-color: #c0392b; /* merah tua */
+    color: white;
+    padding: 8px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+}
+
+.button-disaster:hover {
+    background-color: #e74c3c; /* merah terang saat hover */
+    transform: scale(1.05);
+}
+
+.button-disaster i {
+    font-size: 18px;
+}
+
+
+body {
+    background-color: #2c3e50; /* abu-abu kebiruan gelap */
+    color: #ecf0f1; /* teks abu terang agar kontras */
+}
+
+.section-content {
+    background-color: #34495e; /* abu-abu gelap sedikit lebih terang dari body */
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+}
+
+.container-fluid, .welcome-text {
+    background-color: #3b4a5a; /* latar belakang sedang */
+    padding: 20px;
+    border-radius: 8px;
+}
+
+/* Jika ingin mengubah latar belakang menu sidebar juga */
+#main-sidebar {
+    background-color: #2a2f33;
+}
+
+/* Perbaiki warna teks agar tetap terbaca */
+h1, h2, h3, h4, h5, h6, p, li {
+    color: #ecf0f1;
+}
+
+.table {
+    background-color: #ecf0f1;
+    color: #2c3e50;
+    font-size: 14px;
+    margin-top: 20px;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.table thead {
+    background-color: #2980b9;
+    color: white;
+}
+
+.table th, .table td {
+    padding: 12px 16px;
+    border: 1px solid #bdc3c7;
+    text-align: left;
+    vertical-align: top;
+}
+
+.table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.table tbody tr:hover {
+    background-color: #dfe6e9;
+    transition: background-color 0.3s ease;
+}
+
+#main-sidebar .logo {
+    margin-top: 20px;  /* Jarak dari atas sidebar */
+    margin-bottom: 20px; /* Jarak ke menu */
+    text-align: center;
+}
+
+ #main-sidebar .logo img {
+    filter: drop-shadow(0 0 5px #ffffff7e);
+}
+
+#main-sidebar,
+#main-sidebar .logo,
+#main-sidebar .navigation,
+.responsive-navigation {
+    position: relative;
+    z-index: 100; /* pastikan lebih tinggi dari canvas */
+}
+
+#main-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 300px; /* atau sesuai dengan lebar sidebar-mu */
+    overflow-y: auto;
+    background-color: #2a2f33;
+    z-index: 999;
+}
+
+.button-disaster img {
+    filter: drop-shadow(0 0 2px white); /* agar terlihat di latar gelap */
+    background-color: white; /* tambahkan latar belakang terang */
+    padding: 4px;
+    border-radius: 50%;
+    height: 28px;
+    width: 28px;
+}
+
+#services {
+    margin-top: 10px !important; /* perkecil jarak antar section */
+}
+
+#about .button-disaster {
+    margin-bottom: 50px !important; /* tombol peta tidak terlalu jauh ke bawah */
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+.cursor-waterdrop {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(0, 170, 255, 0.6);
+    pointer-events: none;
+    z-index: 9999;
+    animation: dropFade 1s linear forwards;
+}
+
+@keyframes dropFade {
+    0% { opacity: 1; transform: scale(1); }
+    100% { opacity: 0; transform: scale(2); }
+}
+
+.section-title h2 {
+    font-weight: bold;
+    color: white;
+}
+
+.download-button {
+    display: inline-flex;
+    align-items: center;
+    background-color: #27ae60;
+    color: rgb(10, 0, 0)4, 1, 1;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    gap: 8px;
+}
+
+.download-button {
+    background-color: #23cecb;
+    color: white;
+}
+.download-button:hover {
+    background-color: #23cecb;
+}
+* {
+    color: white !important;
+}
+body, h1, h2, h3, h4, h5, h6, p, li {
+    color: #ecf0f1; /* warna teks di luar tabel */
+}
+.table, 
+.table th, 
+.table td {
+    color: black !important;
+}
+
+
+</style>
+
+</head>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+<body>
+	<!-- This one in here is responsive menu for tablet and mobiles -->
+    <div class="responsive-navigation visible-sm visible-xs">
+        <a href="#" class="menu-toggle-btn">
+            <i class="fa fa-bars fa-2x"></i>
+        </a>
+        <div class="navigation responsive-menu">
+            <ul>
+                <li class="home"><a href="#templatemo">Home</a></li>
+	            <li class="about"><a href="#about">Bahaya</a></li>
+	            <li class="services"><a href="#services">Kerentanan</a></li>
+	            <li class="portfolio"><a href="#portfolio">Risiko</a></li>
+	            <li class="contact"><a href="#contact">Rencana Evakuasi</a></li>
+            </ul> <!-- /.main_menu -->
+        </div> <!-- /.responsive_menu -->
+    </div> <!-- /responsive_navigation -->
+
+	<div id="main-sidebar" class="hidden-xs hidden-sm">
+		<div class="logo" style="display: center; background-color: white; align-items: center; padding: 0;">
+    <img src="images/SIBIKO3.png" alt="Logo SIBASIKO" style="height: 250px; background-color: transparent; text-align: center; padding: 0">
+    <div>
+    </div>
+</div>
+
+		<div class="navigation">
+	        <ul class="main-menu">
+              <li class="home"><a href="#templatemo"><i class="fa fa-home"></i> Home</a></li>
+             <li class="about"><a href="#about"><i class="fa fa-exclamation-circle"></i> Bahaya</a></li>
+             <li class="services"><a href="#services"><i class="fa fa-user-md"></i> Kerentanan</a></li>
+             <li class="portfolio"><a href="#portfolio"><i class="fa fa-warning"></i> Risiko</a></li>
+             <li class="contact"><a href="#contact"><i class="fa fa-location-arrow"></i> Rencana Evakuasi</a></li>
+	        </ul>
+		</div> <!-- /.navigation -->
+
+	</div> <!-- /#main-sidebar -->
+
+	<div id="main-content">
+
+		<div id="templatemo">
+			<div class="main-slider">
+				<div class="flexslider">
+					<ul class="slides">
+                        <li>
+						<div class="slider-caption">
+								<h2>Banjir Rendam Rumah dan Sawah, Petani Gagal Panen</h2>
+								<p>Sejumlah rumah dan sawah di Sukolilo, Pati terdampak banjir akibat tanggul jebol dan tingginya volume aliran air Sungai Silugonggo</p>
+                                <a href=" https://beritajateng.id/berita/banjir-di-sukolilo-pati-rendam-rumah-dan-sawah-petani-gagal-panen/" class="largeButton homeBgColor">Read More</a>
+                            </div>
+							<img src="Banjir_1.jpg" alt="Slide 1">
+						</li>
+						<li>
+							<div class="slider-caption">
+								<h2>Arus Sungai Deras, Menyebabkan Banjir</h2>
+								<p>Sungai di Desa Sukolilo arusnya deras dari arah lereng Pegunungan Kendeng. Air berwarna cokelat meluap ke jalan penghubung Sukolilo Pati-Grobogan</p>
+								<a href="https://www.detik.com/jateng/berita/d-7074053/diguyur-hujan-lebat-sukolilo-pati-banjir-sore-ini" class="largeButton homeBgColor">Read More</a>
+							</div>
+							<img src="Banjir.jpg" alt="Slide 2">
+						</li>
+                        <li>
+							<div class="slider-caption">
+								<h2>Diterjang Banjir, Aspal di Jalan Terkelupas Parah</h2>
+								<p>Bencana banjir bandang menyebabkan kerusalan di jalan Sukolilo – Prawoto tepatnya di Desa Prawoto</p>
+								<a href=" https://betanews.id/2025/04/diterjang-banjir-aspal-di-jalan-sukolilo-prawoto-terkelupas-parah.html" class="largeButton homeBgColor">Read More</a>
+							</div>
+							<img src="Banjir_2.jpg" alt="Slide 3"> 
+						</li>
+                        
+					</ul>
+				</div>
+			</div>
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-md-12">
+					<h3>Riwayat Banjir di Kecamatan Sukolilo, Pati (2020–2025)</h3>
+<p>
+    Kecamatan Sukolilo, Kabupaten Pati merupakan wilayah yang secara geografis berada di zona rawan bencana banjir. 
+    Kawasan ini sering terdampak oleh curah hujan tinggi, sistem drainase yang kurang memadai, serta luapan dari aliran Sungai Juwana dan aliran dari Pegunungan Kendeng. 
+    Dalam periode enam tahun terakhir (2020–2025), Sukolilo mengalami beberapa kejadian banjir dengan skala ringan hingga besar yang berdampak pada ribuan warga, infrastruktur desa, serta aktivitas pertanian.
+</p>
+<p>
+    Puncak banjir terbesar terjadi pada <strong>14–15 Maret 2024</strong> yang menyebabkan genangan air hingga 140 cm, menenggelamkan puluhan rumah dan memaksa ratusan warga mengungsi. 
+    Selain itu, <strong>banjir bandang tahun 2025</strong> yang dipicu oleh luapan air dari Pegunungan Kendeng turut merusak jalan penghubung antarwilayah dan viral di media sosial karena arus deras seperti “tsunami kecil”.
+</p>
+
+<h4>Penyebab Terjadinya Banjir di Kecamatan Sukolilo</h4>
+<ul>
+    <li><strong>Curah hujan ekstrem:</strong> Sukolilo berada di lereng Pegunungan Kendeng yang sering menjadi daerah tangkapan hujan deras.</li>
+    <li><strong>Luapan sungai:</strong> Sungai Juwana dan anak-anak sungainya kerap meluap saat musim hujan, terutama bila pintu air dibuka atau kapasitas sungai tidak mencukupi.</li>
+    <li><strong>Drainase buruk:</strong> Banyak saluran air tersumbat oleh sedimentasi dan sampah, menyebabkan air cepat meluber ke jalan dan permukiman.</li>
+    <li><strong>Alih fungsi lahan:</strong> Perubahan hutan menjadi area pertambangan, pertanian intensif, dan permukiman membuat daya resap tanah berkurang drastis.</li>
+    <li><strong>Kerusakan tanggul:</strong> Beberapa lokasi banjir disebabkan karena tanggul jebol atau tidak mampu menahan debit air.</li>
+</ul>
+
+<p>
+    Kombinasi faktor alam dan aktivitas manusia memperparah kondisi, sehingga diperlukan pendekatan struktural (fisik) dan non-struktural (edukasi, peringatan dini) untuk mengurangi risiko banjir di masa depan.
+</p>
+
+<h4>Data Kejadian Banjir di Kecamatan Sukolilo (2020–2025)</h4>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>No</th>
+            <th>Kejadian Bencana</th>
+            <th>Tahun</th>
+            <th>Dampak</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>1</td>
+            <td>Banjir di Wegil, Kadokan, Kasiyan</td>
+            <td>2020</td>
+            <td>Rumah terendam, lahan pertanian tergenang akibat curah hujan tinggi dan drainase tersumbat.</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Banjir lokal di Kasiyan dan Baturejo</td>
+            <td>2021</td>
+            <td>Genangan lokal akibat luapan sungai kecil, tidak menyebabkan pengungsian besar.</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>Banjir di Kasiyan dan Wegil</td>
+            <td>Januari 2022</td>
+            <td>Puluhan rumah tergenang, evakuasi terbatas akibat kerusakan tanggul dan hujan ekstrem.</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>Banjir tahunan di Kedung Winong dan Kedumulyo</td>
+            <td>2023</td>
+            <td>Jalan desa tergenang, aktivitas warga terganggu akibat drainase lambat.</td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td>Banjir besar di Kasiyan, Gadudero, Baturejo, Wotan</td>
+            <td>14–15 Maret 2024</td>
+            <td>88 rumah tergenang, 327 jiwa mengungsi, genangan mencapai 140 cm. Penyebab: luapan Sungai Juwana dan pembukaan pintu air.</td>
+        </tr>
+        <tr>
+            <td>6</td>
+            <td>Banjir bandang di Prawoto dan Cengkalsewu</td>
+            <td>Maret – Juni 2025</td>
+            <td>Banjir bandang akibat hujan ekstrem dan luapan Pegunungan Kendeng. Jalan terputus, akses rusak, beberapa kejadian viral di media sosial.</td>
+        </tr>
+    </tbody>
+</table>
+						<div class="welcome-text">			
+			<div id="about">
+					<div class="col-md-12">
+<div class="row our-story">
+        <div class="section-title">
+            <h2> BAHAYA BENCANA BANJIR</h2>
+        </div>
+         <p class="description" style="text-align: justify;">
+  <strong>Pengertian Bahaya Banjir</strong><br>
+  Bahaya banjir merupakan salah satu bentuk ancaman hidrometeorologis yang paling sering terjadi di Indonesia, terutama pada wilayah-wilayah yang memiliki curah hujan tinggi, sistem drainase buruk, serta perubahan tata guna lahan yang tidak terkontrol. Bahaya ini tidak hanya berdampak pada aspek fisik lingkungan, tetapi juga memengaruhi kehidupan sosial, ekonomi, dan kesehatan masyarakat.
+</p>
+<p class="description" style="text-align: justify;"><strong>Unsur-Unsur Penyebab Bahaya Banjir di Kecamatan Sukolilo</strong></p>
+<ul class="description" style="text-align: justify;">
+    <li><strong>Curah Hujan Tinggi:</strong> Musim hujan (Desember–Maret) menyebabkan peningkatan debit air secara signifikan.</li>
+    <li><strong>Limpasan Permukaan dan Infiltrasi Rendah:</strong> Perubahan lahan mengurangi daya serap tanah.</li>
+    <li><strong>Sistem Drainase Tidak Memadai:</strong> Saluran air tidak mampu mengalirkan air hujan secara efektif.</li>
+    <li><strong>Sungai dan Saluran Meluap:</strong> Sungai Kalikonto dan saluran irigasi kerap meluap saat hujan deras.</li>
+    <li><strong>Topografi Datar:</strong> Kemiringan kurang dari 3% menyebabkan air sulit mengalir dan mudah tergenang.</li>
+    <li><strong>Kepadatan Permukiman:</strong> Banyak rumah berada di dataran rendah atau bantaran sungai yang memperbesar risiko banjir.</li>
+  </ul>
+</p>
+
+<!-- Gambar Sebelum Tombol -->
+<img src="images/BAHAYA BANJIR.jpg" alt="Preview Peta Bahaya Banjir" style="max-width: 100%; border-radius: 8px; margin-bottom: 15px; box-shadow: 0 4px 8px rgba(0,0,0,0.3);">
+
+  <!-- Tombol PETA -->
+<a href="bahaya.html" class="button-disaster" style="margin-bottom: 10px;">
+    <img src="images/icon2.png" alt="Banjir" style="height: 24px; width: 24px;">
+    PETA
+</a>
+
+
+
+			<div id="services">
+				<div class="row our">
+					<div class="col-md-12">
+						<div class="section-title">
+						<h2>Kerentanan Bencana Banjir</h2>
+             </div>
+<p class="description" style="text-align: justify;">
+  <strong>Pengertian Kerentanan Bencana Banjir</strong><br>
+  Kerentanan bencana banjir adalah kondisi atau karakteristik suatu wilayah, komunitas, kelompok sosial, atau individu yang membuat mereka lebih rentan terhadap dampak buruk yang ditimbulkan oleh banjir. Kerentanan bukan hanya ditentukan oleh keberadaan bahaya (banjir), tetapi juga oleh keterbatasan dalam kapasitas bertahan, ketahanan infrastruktur, dan ketidaksiapan dalam merespons bencana.
+</p>
+
+<p class="description" style="text-align: justify;">
+  Kerentanan merupakan salah satu komponen utama dalam analisis risiko bencana, bersama dengan bahaya (hazard) dan kapasitas (capacity). Semakin tinggi kerentanan suatu wilayah, maka semakin besar risiko yang dihadapi, meskipun intensitas banjirnya tidak selalu tinggi. Wilayah yang memiliki kerentanan tinggi dapat mengalami kerugian besar dari banjir skala kecil sekalipun.
+</p>
+
+<p class="description" style="text-align: justify;">
+  Kerentanan bersifat multidimensi, meliputi aspek fisik, sosial, ekonomi, lingkungan, dan kelembagaan. Faktor-faktor ini saling berinteraksi dan membentuk tingkat kerentanan yang khas pada tiap-tiap wilayah.
+</p>
+
+<p class="description" style="text-align: justify;"><strong>Kerentanan Bencana Banjir di Kecamatan Sukolilo, Kabupaten Pati</strong></p>
+<ul class="description" style="text-align: justify;">
+  <li><strong>Fisik:</strong> Permukiman dekat aliran sungai kecil tanpa tanggul, drainase buruk, dan rumah semi permanen.</li>
+  <li><strong>Sosial:</strong> Literasi kebencanaan masyarakat rendah, kelompok lansia dan anak-anak sangat rentan dalam proses evakuasi.</li>
+  <li><strong>Ekonomi:</strong> Mayoritas penduduk bekerja sebagai petani/peternak berpenghasilan rendah, lahan mudah terendam.</li>
+  <li><strong>Lingkungan:</strong> Konversi lahan dan pembuangan sampah di sungai menyebabkan penyumbatan aliran dan minimnya vegetasi penahan air.</li>
+  <li><strong>Kelembagaan:</strong> Belum tersedia sistem peringatan dini serta belum ada rencana kontinjensi banjir di tingkat desa.</li>
+</ul>
+</p>
+
+<!-- Gambar Sebelum Tombol -->
+<img src="images/KERENTANAN BANJIR.jpg" alt="Preview Peta Bahaya Banjir" style="max-width: 100%; border-radius: 8px; margin-bottom: 15px; box-shadow: 0 4px 8px rgba(0,0,0,0.3);">
+
+<a href="kerentananbencana.html" class="button-disaster" style="margin-bottom: 40px;">
+    <img src="images/icon2.png" alt="Banjir" style="height: 24px; width: 24px;">
+    PETA
+</a>
+
+			<div id="portfolio">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="section-title">
+            <h2>Risiko Bencana BANJIR</h2>
+        </div>
+           <p class="description" style="text-align: justify;">
+  <strong>Pengertian Risiko Bencana Banjir</strong><br>
+<p class="description" style="text-align: justify;">
+    Risiko bencana merupakan potensi kerugian atau kerusakan yang mungkin terjadi akibat interaksi antara 
+    ancaman (<em>hazard</em>), kerentanan (<em>vulnerability</em>), dan kapasitas (<em>capacity</em>) suatu wilayah 
+    atau masyarakat. Dalam konteks banjir, risiko adalah kemungkinan timbulnya dampak negatif dari kejadian banjir 
+    terhadap manusia, aset, dan lingkungan.
+</p>
+<p class="description" style="text-align: justify;"><strong>Rumus dasar:</strong> Risiko = Bahaya × Kerentanan / Kapasitas</p>
+<p class="description" style="text-align: justify;">
+    <strong>Artinya:</strong><br>
+    - <strong>Bahaya</strong> adalah potensi terjadinya banjir (intensitas dan frekuensi).<br>
+    - <strong>Kerentanan</strong> adalah kondisi sosial, fisik, ekonomi, dan lingkungan yang membuat masyarakat rentan terhadap banjir.<br>
+    - <strong>Kapasitas</strong> adalah kemampuan untuk mencegah, merespons, dan pulih dari banjir.
+</p>
+<p class="description" style="text-align: justify;">
+    Risiko banjir di Kecamatan Sukolilo tergolong tinggi karena dipengaruhi oleh bahaya yang berulang, kerentanan yang besar,
+    serta kapasitas penanggulangan yang masih terbatas. Oleh karena itu, upaya pengurangan risiko harus dilakukan dengan
+    meningkatkan kapasitas masyarakat, perbaikan infrastruktur, dan perencanaan tata ruang berbasis mitigasi.
+</p>
+
+<!-- Gambar Sebelum Tombol -->
+<img src="images/RISIKO BANJIR.jpg" alt="Preview Peta Bahaya Banjir" style="max-width: 100%; border-radius: 8px; margin-bottom: 15px; box-shadow: 0 4px 8px rgba(0,0,0,0.3);">
+    </div>
+	<a href="risikobencana.html" class="button-disaster" style="margin-bottom: 40px;">
+    <img src="images/icon2.png" alt="Banjir" style="height: 24px; width: 24px;">
+    PETA
+</a>
+
+<div id="contact">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="section-title">
+                <h2>RENCANA EVAKUASI BENCANA BANJIR</h2>
+             </div>
+                <p class="description" style="text-align: justify;">
+                    Pada rencana ini akan menyajikan informasi terkait tempat evakuasi sementara (TES)
+                    dan juga jalur evakuasi menuju tempat evakuasi sementara.
+                </p>
+            </div>
+            <a href="RencanaEvakuasi.html" class="button-disaster">
+                <img src="images/icon2.png" alt="Banjir" style="height: 24px; width: 24px;">
+                PETA
+            </a>
+    </div>
+								</ul>
+							</div> <!-- /.social-footer -->
+						</div> <!-- /.col-md-12 -->
+					</div> <!-- /.row -->
+				</div> <!-- /.container-fluid -->
+			</div> <!-- /.first-footer -->
+			<div class="bottom-footer">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-md-6">
+							<p class="copyright">Copyright © 2084 <a href="#">Your Company Name</a>
+                            </p>
+						</div> <!-- /.col-md-6 -->
+						<div class="col-md-6 credits">
+							<p><!-- Design: <a rel="nofollow" href="http://www.templatemo.com/tm-394-sonic" target="_parent">Sonic</a> --></p>
+						</div> <!-- /.col-md-6 -->
+					</div> <!-- /.row -->
+				</div> <!-- /.container-fluid -->
+			</div> <!-- /.bottom-footer -->
+		</div> <!-- /.site-footer -->
+
+	</div> <!-- /#main-content -->
+
+	<!-- JavaScripts -->
+	<script src="js/jquery-1.10.2.min.js"></script>
+	<script src="js/jquery.singlePageNav.js"></script>
+	<script src="js/jquery.flexslider.js"></script>
+	<script src="js/jquery.prettyPhoto.js"></script>
+	<script src="js/custom.js"></script>
+	<script>
+		$(document).ready(function(){
+			$("a[data-gal^='prettyPhoto']").prettyPhoto({hook: 'data-gal'});
+		});
+
+        function initialize() {
+          var mapOptions = {
+            zoom: 13,
+            center: new google.maps.LatLng(40.7809919,-73.9665273)
+          };
+
+          var map = new google.maps.Map(document.getElementById('map-canvas'),
+              mapOptions);
+        }
+
+        function loadScript() {
+          var script = document.createElement('script');
+          script.type = 'text/javascript';
+          script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&' +
+              'callback=initialize';
+          document.body.appendChild(script);
+        }
+
+        window.onload = loadScript;
+</script>
+
+<!-- templatemo 394 sonic -->
+
+<script>
+document.addEventListener('mousemove', function(e) {
+    const drop = document.createElement('div');
+    drop.className = 'cursor-waterdrop';
+    drop.style.left = e.pageX + 'px';
+    drop.style.top = e.pageY + 'px';
+    document.body.appendChild(drop);
+    setTimeout(() => drop.remove(), 1000);
+});
+
+<canvas id="banjirChart" style="max-height: 300px;"></canvas>
+src="https://cdn.jsdelivr.net/npm/chart.js">
+  const ctx = document.getElementById('banjirChart').getContext('2d');
+  const banjirChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+          labels: ['2020', '2021', '2022', '2023', '2024', '2025'],
+          datasets: [{
+              label: 'Jumlah Kejadian Banjir',
+              data: [1, 1, 1, 1, 1, 1],
+              borderColor: '#e74c3c',
+              backgroundColor: 'rgba(231,76,60,0.2)',
+              fill: true,
+              tension: 0.4
+          }]
+      },
+      options: {
+          responsive: true,
+          plugins: { legend: { display: false } },
+          scales: { y: { beginAtZero: true } }
+      }
+  });
+
+</script>
+
+</body>
+</html>
